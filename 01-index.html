@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Image Search App</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background: #f4f4f4;
+      margin: 0;
+      padding: 20px;
+    }
+    h1 {
+      text-align: center;
+    }
+    form {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    input[type="text"] {
+      padding: 10px;
+      width: 300px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    #images {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 15px;
+    }
+    img {
+      width: 100%;
+      border-radius: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🔍 Image Search App</h1>
+  <form id="search-form">
+    <input type="text" id="query" placeholder="Search images..." required />
+  </form>
+
+  <div id="images"></div>
+
+  <script>
+    const form = document.getElementById('search-form');
+    const input = document.getElementById('query');
+    const imageContainer = document.getElementById('images');
+
+    const accessKey = 'YOUR_ACCESS_KEY_HERE'; // Replace with your Unsplash access key
+
+    form.addEventListener('submit', async function (e) {
+      e.preventDefault();
+      const query = input.value.trim();
+      if (!query) return;
+
+      const url = `https://api.unsplash.com/search/photos?query=${query}&client_id=${accessKey}`;
+      const res = await fetch(url);
+      const data = await res.json();
+
+      imageContainer.innerHTML = ''; // clear previous images
+
+      data.results.forEach(photo => {
+        const img = document.createElement('img');
+        img.src = photo.urls.small;
+        imageContainer.appendChild(img);
+      });
+    });
+  </script>
+
+</body>
+</html>
