@@ -24,6 +24,7 @@ async function searchImages(){
 
   const result = data.result;
   result.foreach((result) =>{
+    img.alt = photo.alt_description || "Image";
 const resultCount = document.createElement('p');
 resultCount.textContent = `${data.total} results found`;
 imageContainer.prepend(resultCount);
