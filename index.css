@@ -1,0 +1,9 @@
+body.dark {
+  background: #121212;
+  color: #ffffff;
+}
+
+body.dark input[type="text"] {
+  background-color: #333;
+  color: white;
+}
