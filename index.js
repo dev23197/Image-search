@@ -14,7 +14,10 @@ async function searchImages(){
   const url = `https://api.unsplash.com/search/photos?query=${query}&per_page=10&client_id=${accessKey}`;
   const response = await fetch(url);
   const data = await response.json();
-
+   if (data.results.length === 0) {
+  imageContainer.innerHTML = "<p>No images found. Try something else.</p>";
+  return;
+}
   if (page === 1){
     searchResultEl.innerhtml = "";
   }
