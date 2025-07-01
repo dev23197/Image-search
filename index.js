@@ -11,8 +11,7 @@ let page = 1;
 async function searchImages(){
   inputData = searchInputEl.Value;
 
-  const url = `https://api.unsplash.com/search/photos?page=${page}&query=${inputData}&client_id=${accessKey}`;
-
+  const url = `https://api.unsplash.com/search/photos?query=${query}&per_page=10&client_id=${accessKey}`;
   const response = await fetch(url);
   const data = await response.json();
 
@@ -22,6 +21,9 @@ async function searchImages(){
 
   const result = data.result;
   result.foreach((result) =>{
+const resultCount = document.createElement('p');
+resultCount.textContent = `${data.total} results found`;
+imageContainer.prepend(resultCount);
   const imageWrapper = document.createElement("div");
   imageWrapper.classList.add("search-result");
 
